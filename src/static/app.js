@@ -21,17 +21,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const participantsList = details.participants.length > 0 
           ? (() => {
               const ul = document.createElement("ul");
-              ul.style.listStyleType = "none";
-              ul.style.paddingLeft = "0";
-              ul.style.marginTop = "10px";
+              ul.className = "participants-list";
               details.participants.forEach(email => {
                 const li = document.createElement("li");
+                li.className = "participant-item";
                 li.textContent = email;
                 const span = document.createElement("span");
+                span.className = "remove-participant";
                 span.textContent = "×";
-                span.style.cursor = "pointer";
-                span.style.color = "red";
-                span.style.marginLeft = "10px";
                 span.addEventListener("click", () => unregister(name, email));
                 li.appendChild(span);
                 ul.appendChild(li);
@@ -40,9 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })()
           : (() => {
               const p = document.createElement("p");
-              p.style.marginTop = "10px";
-              p.style.fontStyle = "italic";
-              p.style.color = "#666";
+              p.className = "no-participants";
               p.textContent = "No participants yet.";
               return p;
             })();
@@ -74,11 +69,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const participantsP = document.createElement("p");
         const partStrong = document.createElement("strong");
+        partStrong.className = "participants-title";
         partStrong.textContent = "Participants:";
         participantsP.appendChild(partStrong);
-        activityCard.appendChild(participantsP);
 
-        activityCard.appendChild(participantsList);
+        const participantsSection = document.createElement("div");
+        participantsSection.className = "participants-section";
+        participantsSection.appendChild(participantsP);
+        participantsSection.appendChild(participantsList);
+
+        activityCard.appendChild(participantsSection);
 
         activitiesList.appendChild(activityCard);
 
